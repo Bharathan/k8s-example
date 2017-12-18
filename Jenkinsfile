@@ -23,7 +23,7 @@ node {
     echo 'Testing Docker image'
     stage("test image") {
         docker.image("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}").inside {
-          sh './test.sh'
+          sh '/test.sh'
         }
     }
 
