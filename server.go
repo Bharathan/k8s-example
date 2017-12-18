@@ -13,7 +13,7 @@ var Count int = 0
 var logger *log.Logger
 var f *os.File
 var countF *os.File
-var message string = "Hello From Kubernetes in CI/CD Training." 
+var message string = "Hello From Kubernetes in CI/CD Training with k8s scaling." 
 
 func main() {
 
