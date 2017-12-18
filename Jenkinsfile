@@ -33,7 +33,7 @@ node {
     stage("Push")
     docker.withRegistry('https://index.docker.io/v1/', 'docker-hub') {
         app.push()
-        app.push(${JENKINS_SERVER_COOKIE})
+        app.push('${JENKINS_SERVER_COOKIE}')
     }
 
     echo "Deploying image"
