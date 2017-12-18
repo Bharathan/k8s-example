@@ -2,7 +2,7 @@ node {
     checkout scm
     def DOCKER_HUB_ACCOUNT = 'bharathan1980'
     def DOCKER_IMAGE_NAME = 'k8s-example'
-    def COMMIT_ID=$(git rev-parse HEAD)
+    
     echo 'Building Go App'
     stage("build") {
         docker.image("icrosby/jenkins-agent:kube").inside('-u root') {
@@ -13,12 +13,14 @@ node {
     stage("test") {
         docker.image('icrosby/jenkins-agent:kube').inside('-u root') {
             sh 'go test' 
+            sh 'printenv'
         }
     }
 
     echo 'Building Docker image'
+    
     stage('BuildImage') 
-    def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:${COMMIT_ID}", '.')
+    def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:${GIT_COMMIT}", '.')
 
     echo 'Testing Docker image'
     stage("test image") {
