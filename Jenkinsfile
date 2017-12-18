@@ -18,11 +18,11 @@ node {
 
     echo 'Building Docker image'
     stage('BuildImage') 
-    def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}", '.')
+    def app = docker.build("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}:${env.GIT_COMMIT}", '.')
 
     echo 'Testing Docker image'
     stage("test image") {
-        docker.image("${DOCKER_HUB_ACCOUNT}/${DOCKER_IMAGE_NAME}").inside {
+        app.inside {
           sh '/test.sh'
         }
     }
@@ -38,7 +38,7 @@ node {
     docker.image('smesch/kubectl').inside{
         withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
             //sh "kubectl --kubeconfig=$KUBECONFIG apply -f deployment.yaml --validate=false"
-            sh 'kubectl --kubeconfig=$KUBECONFIG set image deployment/k8s-example k8s-example=bharathan1980/k8s-example'
+            sh 'kubectl --kubeconfig=$KUBECONFIG set image deployment/k8s-example k8s-example=bharathan1980/k8s-example:${env.GIT_COMMIT}'
         }
     }
 }
