@@ -5,7 +5,7 @@ metadata:
   labels:
     name: k8s-example
 spec:
-  replicas: 1
+  replicas: 5
   template:
     metadata:
       labels:
