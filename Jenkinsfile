@@ -1,7 +1,7 @@
 node {
     checkout scm
-    def DOCKER_HUB_ACCOUNT = 'icrosby'
-    def DOCKER_IMAGE_NAME = 'k8s-example-adidas'
+    def DOCKER_HUB_ACCOUNT = 'bharathan1980'
+    def DOCKER_IMAGE_NAME = 'k8s-example'
 
     echo 'Building Go App'
     stage("build") {
